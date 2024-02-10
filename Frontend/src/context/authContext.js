@@ -4,47 +4,37 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+
+  const login = async (inputs) => {
+    const res = await axios.post("http://localhost:8000/api/users/login", inputs);
+    
+    // ตรวจสอบก่อนว่า response มี data และ token หรือไม่
+    if (res.data && res.data.token) {
+      localStorage.setItem("token", res.data.token); // เก็บ token ไว้ใน local storage
+      localStorage.setItem("UserID", res.data.UserID);
+      const { token, ...userData } = res.data; // แยก token ออกจากข้อมูลผู้ใช้อื่นๆ
+      setCurrentUser(userData); // เก็บข้อมูลผู้ใช้ (ไม่รวม token) ไว้ใน state
+    }
+  };
+
+  const logout = async () => {
+    await axios.post("http://localhost:8000/api/users/logout");
+    localStorage.removeItem("token"); 
+    localStorage.removeItem("UserID");
+    localStorage.removeItem("user"); 
+    setCurrentUser(null);
+  };
 
   useEffect(() => {
-    // เรียกใช้งานเมื่อ component mount เพื่อตรวจสอบว่าผู้ใช้เข้าสู่ระบบอยู่หรือไม่
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      setCurrentUser(user);
-    }
-  }, []);
+    localStorage.setItem("user", JSON.stringify(currentUser));
+  }, [currentUser]);
 
-  const login = async (email, password) => {
-    // ที่นี่คุณจะต้องทำการเรียก API เพื่อเข้าสู่ระบบ
-    // สมมติว่า API ตอบกลับมาพร้อมกับข้อมูลผู้ใช้และ token
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await response.json();
-    if (response.ok) {
-      setCurrentUser(data.user);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      localStorage.setItem('token', data.token);
-    } else {
-      throw new Error(data.message || 'Failed to login');
-    }
-  };
-
-  const logout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-  };
-
-  const value = {
-    currentUser,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

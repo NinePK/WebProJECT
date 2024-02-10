@@ -4,30 +4,24 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
-import Register from "./pages/register";
-import Login from "./pages/login";
-import Post from "./pages/post";
 import Home from "./pages/home";
-
+import Login from "./component/login";
+import Register from "./component/register";
 
 
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/" || "/home",
     element: <Home />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
   },
   {
     path: "/login",
     element: <Login />,
   },
   {
-    path: "/addPost",
-    element: <Post />,
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

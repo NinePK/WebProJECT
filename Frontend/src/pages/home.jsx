@@ -8,8 +8,8 @@ import pic3 from '../picture/pexels-pixabay-271618.jpg';
 import pic4 from '../picture/bathroom-3563272.jpg';
 import pic5 from '../picture/office-8503515.png';
 import logogroovy from '../picture/groovy.png';
-import Nav from './nav';
-import AddPost from './post';
+import Nav from '../component/nav';
+import AddPost from '../component/post';
 function Home() {
   return (
     <div>     
