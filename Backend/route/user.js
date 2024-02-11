@@ -58,19 +58,14 @@ router.post('/register', async (req, res) => {
 });
 router.post('/login', (req, res) => {
   const q = "SELECT * FROM users WHERE email = ?";
-
   db.query(q, [req.body.email], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length === 0) return res.status(404).json("User not found!");
 
-    // Check password
     const isPasswordCorrect = bcrypt.compareSync(req.body.password, data[0].password);
     if (!isPasswordCorrect) return res.status(400).json("Wrong username or password!");
-
-    // Sign token
     const token = jwt.sign({ id: data[0].id }, jwtSecret);
     
-    // Exclude password from the user data and include userID
     const { password, ...other } = data[0];
 
     // Send userID, token, and other user data back
@@ -79,7 +74,9 @@ router.post('/login', (req, res) => {
 });
 
 
-
+router.post('/logout', (req, res) => {
+  res.status(200).json({ message: "Logged out successfully" });
+});
 
 
 router.get('/getUsers', (req, res) => {
