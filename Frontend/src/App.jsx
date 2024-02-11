@@ -7,12 +7,19 @@ import {
 import Home from "./pages/home";
 import Login from "./component/login";
 import Register from "./component/register";
-
-
+import Bedroom from "./pages/bedroom.jsx";
+import Bathroom from "./pages/bathroom.jsx";
+import Kitchen from "./pages/kitchen.jsx";
+import Livingroom from "./pages/livingroom.jsx";
+import Workspace from "./pages/workspace.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/" || "/home",
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/home",
     element: <Home />,
   },
   {
@@ -22,6 +29,26 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/bedroom",
+    element: <Bedroom />,
+  },
+  {
+    path: "/bathroom",
+    element: <Bathroom />,
+  },
+  {
+    path: "/kitchen",
+    element: <Kitchen />,
+  },
+  {
+    path: "/livingroom",
+    element: <Livingroom />,
+  },
+  {
+    path: "/workspace",
+    element: <Workspace />,
   },
 ]);
 
