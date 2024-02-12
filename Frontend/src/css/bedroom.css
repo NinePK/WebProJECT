@@ -1,0 +1,204 @@
+.bed-main {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bed-cont {
+  max-width: 100%; 
+  box-sizing: border-box;
+  height: auto;
+  width: 100%;
+}  
+
+.bed-cont1 {
+  display: flex;
+  padding-left: 10px;  
+  padding-right: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
+  max-width: 100%;
+  padding-top: 20px;
+}
+
+.bed-cont2 {
+  display: flex;
+  padding-left: 10px;  
+  padding-right: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
+  max-width: 100%;
+
+  background-color: rgb(160, 160, 160);
+  border-radius: 10px;
+}
+.checkbox-cont {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  height: auto;
+  width: 16rem;
+  background-color: rgba(0, 0, 0, 0.801);
+  padding: 30px;
+
+}
+.checkbox-cont-text {
+  font-Size: 22px;
+  color: rgb(255, 255, 255);
+  padding-bottom: 5px;
+}
+.checkbox-cont h1 {
+  font-Size: 35px;
+  color: rgb(255, 255, 255);
+
+}
+.bed-name {
+  width: 100%;
+  color: white;
+  font-size: 9rem; /* fixed */
+  font-style: italic;
+  text-align: center; 
+  padding: 20px;
+  padding-top: 100px; /* fixed */
+  margin-bottom: 60px; /* fixed */
+  background-image: linear-gradient(to bottom, 
+rgba(212, 214, 76, 0.25), 
+rgba(212, 214, 76, 0.15), 
+rgba(212, 214, 76, 0.08),
+rgba(212, 214, 76, 0));
+}
+.bed-name p{
+  text-shadow: 
+  2px 2px 2px black, 
+  0 0 10px rgba(212, 214, 76, 0.5), 
+  0 0 2px rgba(212, 214, 76, 0.5);
+  animation: wave 10s linear infinite;
+  font-family: Georgia, serif;
+  margin-bottom: -30px;
+}
+
+@keyframes wave {
+0%{
+opacity: 0;
+transform: translateY(-20px);
+}
+20% {
+opacity: 1;
+}
+80% {
+opacity: 1;
+}
+100% {
+opacity: 0;
+transform: translateY(20px);
+}
+}
+
+.bed-gal {
+margin-bottom: 20px; 
+}
+
+.bed-gal img {
+max-width: 100%; 
+height: auto; 
+}
+.bed-col{
+width: 100%;
+height: 100%;
+}
+
+.bed-cont-mygal {
+display: flex;
+max-width: 100%;
+padding: 30px;
+padding-top: 40px;
+}
+
+
+
+/* สำหรับหน้า Ipad */
+@media screen and (max-width: 800px) {
+body {
+ overflow: hidden; /* ปิดการเลื่อนหน้าจอในทิศทางทั้งแนวนอนและแนวตั้ง */
+}
+
+body {
+transition: all 0.3s ease;
+}
+
+.bed-name {
+color: white;
+text-align: center; 
+padding: 10px;
+padding-top: 105px;
+margin-bottom: 45px;
+background-image: linear-gradient(to bottom, 
+rgba(212, 214, 76, 0.25), 
+rgba(212, 214, 76, 0.15), 
+rgba(212, 214, 76, 0.08),
+rgba(212, 214, 76, 0));
+
+}
+.bed-name p{
+text-shadow: 
+2px 2px 2px black, 
+0 0 10px rgba(212, 214, 76, 0.5), 
+0 0 2px rgba(212, 214, 76, 0.5);
+animation: wave 10s linear infinite;
+font-family: Georgia, serif;
+font-style: italic;
+font-size: 6rem;
+}
+}
+
+
+/* สำหรับหน้า SmartPhone */
+@media screen and (max-width: 595px) {
+body {
+ overflow: hidden; /* ปิดการเลื่อนหน้าจอในทิศทางทั้งแนวนอนและแนวตั้ง */
+}
+
+.bed-cont2 {
+display: flex;
+justify-content: center;
+padding-left: 40px; /* fixed */
+padding-right: 50px; /* fixed */
+max-width: 100%;
+background-image: linear-gradient(to bottom,
+rgba(0, 0, 0, 0),
+rgba(0, 0, 0, 0.1), 
+rgba(0, 0, 0, 0.2),
+rgba(0, 0, 0, 0.3)
+);
+}
+
+
+body {
+transition: all 0.3s ease;
+}
+
+.bed-name {
+color: white;
+text-align: center; 
+padding: 10px;
+padding-top: 105px;
+margin-bottom: 65px;
+background-image: linear-gradient(to bottom, 
+rgba(212, 214, 76, 0.25), 
+rgba(212, 214, 76, 0.15), 
+rgba(212, 214, 76, 0.08),
+rgba(212, 214, 76, 0));
+
+}
+.bed-name p{
+text-shadow: 
+2px 2px 2px black, 
+0 0 10px rgba(212, 214, 76, 0.5), 
+0 0 2px rgba(212, 214, 76, 0.5);
+animation: wave 10s linear infinite;
+font-family: Georgia, serif;
+font-style: italic;
+font-size: 4rem;
+}
+
+}
