@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import { Select, Modal, Button, Upload, Form, Input, AutoComplete ,Checkbox} from 'antd';
+import { Select, Modal, Button, Upload, Form, Input, AutoComplete, Checkbox } from 'antd';
 import { UploadOutlined, FormOutlined, DeleteTwoTone, HeartFilled } from '@ant-design/icons';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -33,7 +33,8 @@ const MyGallery = () => {
   const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
   const [canEdit, setCanEdit] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
-  
+  const [isLiked, setIsLiked] = useState(false);
+
   let cols;
   if (matchesLg) {
     cols = 4;
@@ -63,7 +64,7 @@ const MyGallery = () => {
       });
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/rooms/getImage/4');
+        const response = await axios.get('http://localhost:8000/api/rooms/getImage/5');
         setImages(response.data);
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -85,49 +86,52 @@ const MyGallery = () => {
       fetchLikesCount();
     }
   }, [selectedImage]);
-///////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////
 
-/////////////////////////////////////////LIKE////////////////////////////////////////
-const handleLike = async () => {
-  try {
-    await axios.post(`http://localhost:8000/api/post/like/${selectedImage.id}`, { postId: selectedImage.id, userId: UserID }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+  /////////////////////////////////////////LIKE////////////////////////////////////////
+  const handleLike = async () => {
+    if (!isLiked) {
+      try {
+        await axios.post(`http://localhost:8000/api/post/like/${selectedImage.id}`, { postId: selectedImage.id, userId: UserID }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        setLikesCount(likesCount + 1); // เพิ่มจำนวนถูกใจทันทีหลังจากกดถูกใจ
+        setIsLiked(true); // อัปเดต state เพื่อบ่งชี้ว่าผู้ใช้ได้กดไลค์แล้ว
+        console.log('Liked successfully');
+      } catch (error) {
+        console.error('Error liking post:', error);
       }
-    });
-    setLikesCount(likesCount + 1); // เพิ่มจำนวนถูกใจทันทีหลังจากกดถูกใจ
-    console.log('Liked successfully');
-  } catch (error) {
-    console.error('Error liking post:', error);
-  }
-};
+    }
+  };
 
-/////////////////////////////////////////LIKE////////////////////////////////////////
-const uploadProps = {
-  beforeUpload: file => {
-    setFile(file);
-    return false; // Prevent automatic upload
-  },
-  file,
-};
-const handleImageClick = (image) => {
-  setSelectedImage(image);
-  setTitle(image.title);
-  setDescription(image.description);
-  setCategoryID(image.CategoryID);
-  setStyleID(image.StyleID);
-  setModalVisible(true);
+  /////////////////////////////////////////LIKE////////////////////////////////////////
+  const uploadProps = {
+    beforeUpload: file => {
+      setFile(file);
+      return false; // Prevent automatic upload
+    },
+    file,
+  };
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setTitle(image.title);
+    setDescription(image.description);
+    setCategoryID(image.CategoryID);
+    setStyleID(image.StyleID);
+    setModalVisible(true);
 
-  // ตรวจสอบสิทธิ์การแก้ไข โดยเปรียบเทียบ uid ของรูปภาพกับ UserID ใน localStorage
-  const currentUserID = localStorage.getItem('UserID');
-  setCanEdit(image.uid.toString() === currentUserID);
-};
-const showModal = () => {
-  setIsModalVisible(true);
-};
-const closeModal = () => {
-  setModalVisible(false);
-};
+    // ตรวจสอบสิทธิ์การแก้ไข โดยเปรียบเทียบ uid ของรูปภาพกับ UserID ใน localStorage
+    const currentUserID = localStorage.getItem('UserID');
+    setCanEdit(image.uid.toString() === currentUserID);
+  };
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   const formatDateTime = (dateTimeString) => {
     const dateTime = new Date(dateTimeString);
@@ -181,10 +185,6 @@ const closeModal = () => {
     }
   };
   const handleEdit = async (image) => {
-    if (!file) {
-      console.error('No file selected.');
-      return;
-    }
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -218,37 +218,37 @@ const closeModal = () => {
   };
   return (
     <Box sx={{}} className="style">
-    <div className='bed-cont'>
+      <div className='bed-cont'>
         <div className='bed-cont2'>
           <div className='checkbox-cont'>
             <h1>Style&nbsp;rooms</h1>
-            <hr style={{ border: '1px solid #ccc', marginTop: '-3px', marginBottom:'5px'}} />
-        {['Modern', 'Minimal', 'Art deco', 'Boho', 'Country', 'Industrial', 'Rustic'].map((StyleName) => (
-          <Checkbox key={StyleName} className='checkbox-cont-text' onChange={() => handleCheckboxChange(StyleName)}>
-            {`${StyleName}`}
-          </Checkbox>
-        ))}
+            <hr style={{ border: '1px solid #ccc', marginTop: '-3px', marginBottom: '5px' }} />
+            {['Modern', 'Minimal', 'Art deco', 'Boho', 'Country', 'Industrial', 'Rustic'].map((StyleName) => (
+              <Checkbox key={StyleName} className='checkbox-cont-text' onChange={() => handleCheckboxChange(StyleName)}>
+                {`${StyleName}`}
+              </Checkbox>
+            ))}
           </div>
-        
-      <div className='bed-cont-mygal'>
-      <ImageList variant="masonry" cols={cols} gap={12}>
-        {images
-          .filter((item) => (filterStyles.length === 0 || filterStyles.includes(item.StyleName)))
-          .map((item) => (
-            <ImageListItem key={item.id} className="image-list-item" onClick={() => handleImageClick(item)}>
-              <img
-                srcSet={`${item.img}?w=1080&fit=crop&auto=format&dpr=2 2x`}
-                src={`../upload/${item.img}?w=1080&fit=crop&auto=format`}
-                alt={item.title}
-                loading="lazy"
-              />
-            </ImageListItem>
-          ))}
+
+          <div className='bed-cont-mygal'>
+            <ImageList variant="masonry" cols={cols} gap={12}>
+              {images
+                .filter((item) => (filterStyles.length === 0 || filterStyles.includes(item.StyleName)))
+                .map((item) => (
+                  <ImageListItem key={item.id} className="image-list-item" onClick={() => handleImageClick(item)}>
+                    <img
+                      srcSet={`${item.img}?w=1080&fit=crop&auto=format&dpr=2 2x`}
+                      src={`../upload/${item.img}?w=1080&fit=crop&auto=format`}
+                      alt={item.title}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
             </ImageList>
           </div>
-          
+
         </div>
-    </div>
+      </div>
       <Modal
         title="Image Details"
         open={modalVisible}
@@ -281,7 +281,7 @@ const closeModal = () => {
             <Button
               className="like-button"
               type="text"
-              icon={<HeartFilled onClick={handleLike} style={{ color: 'red' }} />}
+              icon={<HeartFilled onClick={handleLike} style={{ color: isLiked ? 'red' : 'gray' }} />} 
             >
               {likesCount}
             </Button>
