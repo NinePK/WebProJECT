@@ -3,10 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -14,7 +10,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import Nav from './nav'
+import { useNavigate } from 'react-router-dom';
 const defaultTheme = createTheme();
+
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
@@ -22,21 +20,19 @@ export default function SignUp() {
       email: '',
       password: '',
     });
-  
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
       event.preventDefault();
-  
+    
       try {
-        // Send the data as JSON to your backend API
         const response = await axios.post('http://localhost:8000/api/users/register', formData, {
           headers: {
             'Content-Type': 'application/json',
           }
-          
-          
         });
-  
+    
         console.log('Response from backend:', response.data);
+        navigate('/login'); // Adjust the path as per your login route
       } catch (error) {
         console.error('Error sending data to backend:', error);
       }
