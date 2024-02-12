@@ -8,7 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 
 import '../../css/img-list.css';
-
+import '../../css/bedroom.css';
 const MyGallery = () => {
   const [images, setImages] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +33,7 @@ const MyGallery = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/rooms/getImage/3');
+        const response = await axios.get('http://localhost:8000/api/rooms/getImage/4');
         setImages(response.data);
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -74,15 +74,21 @@ const MyGallery = () => {
 
   return (
     <Box sx={{}} className="style">
-      <div>
+    <div className='bed-cont'>
+        <div className='bed-cont2'>
+          <div className='checkbox-cont'>
+            <h1>Style&nbsp;rooms</h1>
+            <hr style={{ border: '1px solid #ccc', marginTop: '-3px', marginBottom:'5px'}} />
         {/* เพิ่ม checkbox สำหรับ filter */}
         {['Modern', 'Minimal', 'Art deco', 'Boho', 'Country', 'Industrial', 'Rustic'].map((StyleName) => (
-          <Checkbox key={StyleName} onChange={() => handleCheckboxChange(StyleName)}>
-            {`Filter ${StyleName}`}
+          <Checkbox key={StyleName} className='checkbox-cont-text' onChange={() => handleCheckboxChange(StyleName)}>
+            {`${StyleName}`}
           </Checkbox>
         ))}
-      </div>
-      <ImageList variant="masonry" cols={cols} gap={10}>
+          </div>
+        
+      <div className='bed-cont-mygal'>
+      <ImageList variant="masonry" cols={cols} gap={12}>
         {images
           .filter((item) => (filterStyles.length === 0 || filterStyles.includes(item.StyleName)))
           .map((item) => (
@@ -95,8 +101,11 @@ const MyGallery = () => {
               />
             </ImageListItem>
           ))}
-      </ImageList>
-
+            </ImageList>
+          </div>
+          
+        </div>
+    </div>
       <Modal
         title="Image Details"
         visible={modalVisible}

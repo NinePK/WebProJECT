@@ -7,11 +7,12 @@ import {
 import Home from "./pages/home";
 import Login from "./component/login";
 import Register from "./component/register";
-import Bedroom from "./pages/bedroom.jsx";
-import Bathroom from "./pages/bathroom.jsx";
-import Kitchen from "./pages/kitchen.jsx";
-import Livingroom from "./pages/livingroom.jsx";
-import Workspace from "./pages/workspace.jsx";
+import Bedroom from "./pages/bedroom/bedroom.jsx";
+import Bathroom from "./pages/bathroom/bathroom.jsx";
+import Kitchen from "./pages/kitchen/kitchen.jsx";
+import Livingroom from "./pages/livingroom/livingroom.jsx";
+import Workspace from "./pages/workspace/workspace.jsx";
+
 
 const router = createBrowserRouter([
   {

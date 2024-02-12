@@ -3,6 +3,10 @@ import axios from 'axios';
 import { AuthContext } from '../context/authContext';
 import { Select, Modal, Button, Upload } from 'antd';
 import { UploadOutlined,PlusOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+
 
 const { Option } = Select;
 
@@ -87,9 +91,9 @@ const PostForm = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={showModal}>
-      <PlusOutlined />Post
-      </Button>
+      <Link type="primary" onClick={showModal}>
+        Post&nbsp;<FontAwesomeIcon icon={faPen} size="sm"/>
+      </Link>
       <Modal title="Create a Post" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <form>
           <div>

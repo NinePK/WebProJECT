@@ -2,31 +2,58 @@
   display: flex;
   flex-wrap: wrap;
   background-color: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
 }
 
 .bed-cont {
   max-width: 100%; 
   box-sizing: border-box;
   height: auto;
-  justify-content: center;
+  width: 100%;
 }  
-.bed-cont2 {
+
+.bed-cont1. {
   display: flex;
-  justify-content: center;
-  padding-left: 40px;
-  padding-right: 50px;
+  padding-left: 10px;  
+  padding-right: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
   max-width: 100%;
-  background-image: linear-gradient(to bottom,
-  rgba(0, 0, 0, 0),
-  rgba(0, 0, 0, 0.1), 
-  rgba(0, 0, 0, 0.2),
-  rgba(0, 0, 0, 0.3)
-  );
+  padding-top: 20px;
 }
 
+.bed-cont2 {
+  display: flex;
+  padding-left: 10px;  
+  padding-right: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
+  max-width: 100%;
+
+  background-color: rgb(160, 160, 160);
+  border-radius: 10px;
+}
+.checkbox-cont {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  height: auto;
+  width: 16rem;
+  background-color: rgba(0, 0, 0, 0.801);
+  padding: 30px;
+
+}
+.checkbox-cont-text {
+  font-Size: 22px;
+  color: rgb(255, 255, 255);
+  padding-bottom: 5px;
+}
+.checkbox-cont h1 {
+  font-Size: 35px;
+  color: rgb(255, 255, 255);
+
+}
 .bed-name {
+  width: 100%;
   color: white;
   font-size: 9rem; /* fixed */
   font-style: italic;
@@ -47,6 +74,7 @@ rgba(212, 214, 76, 0));
   0 0 2px rgba(212, 214, 76, 0.5);
   animation: wave 10s linear infinite;
   font-family: Georgia, serif;
+  margin-bottom: -30px;
 }
 
 @keyframes wave {
@@ -81,11 +109,9 @@ height: 100%;
 
 .bed-cont-mygal {
 display: flex;
-justify-content: center;
-padding: 20px;
-padding-left: 10px;
 max-width: 100%;
-margin-bottom: 20px;
+padding: 30px;
+padding-top: 40px;
 }
 
 

@@ -14,8 +14,7 @@ function Bathroom() {
           <div className='bed-name'>
             <p>Bath room</p> 
           </div>
-
-          <div className='bed-cont-mygal'>
+          <div className='bed-cont1'>
             <MyGallery/>
           </div>
         </div>

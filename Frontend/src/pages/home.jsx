@@ -13,6 +13,7 @@ import AddPost from '../component/post';
 import { Link } from 'react-router-dom';
 function Home() {
   const [open, setOpen] = React.useState(false);
+  
 
 const handleClose = () => {
   setOpen(false);

@@ -9,11 +9,19 @@ import AddPost from './post';
 import Login from './login';
 import Register from './register';
 import { Form, Input, Button, message } from 'antd';
+import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+
+
 function Nav() {
     const { currentUser, logout } = useContext(AuthContext); // ใช้ useContext เพื่อเข้าถึง currentUser และ logout
     const hamIconRef = useRef(null);
     const mobileMenuRef = useRef(null);
     const [open, setOpen] = React.useState(false);
+    useEffect(() => {
+        document.title = 'Groovy Design'; // กำหนด title ใหม่ที่นี่
+      }, []);
 
     const handleClose = () => {
         setOpen(false);
@@ -93,6 +101,7 @@ function Nav() {
 
     return (
         <div>
+
             <div className="container">
                 <div className="nav-con">
                     <ul className='menu logo-container'>
@@ -139,11 +148,15 @@ function Nav() {
                         <ul className='menu button-container'>
                             {currentUser ? (
                                 <li>
-                                    <div className="auth-box">
-                                        <AddPost />
+                                    <div className='auth-box'>
+                                        <button className="nav-login-btn">
+                                            <AddPost />
+                                        </button>
                                     </div>
                                     <div className="auth-box">
-                                        <button className="nav-login-btn" onClick={handleLogout}>LOGOUT</button>
+                                        <button className="nav-login-btn" onClick={handleLogout}>
+                                            Logout
+                                        </button>
                                     </div>
                                 </li>
                             ) : (
@@ -196,11 +209,12 @@ function Nav() {
                             <a>Livingroom</a>
                         </Link>
                     </li>
-
+                    <AddPost />
                     {currentUser ? (
                         <li>
-                            <AddPost />
-                            <Link onClick={handleLogout}>Logout</Link>         
+                            <Link onClick={handleLogout}>
+                                Logout<FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />
+                            </Link>         
                         </li>
                     ) : (
                         <React.Fragment>
