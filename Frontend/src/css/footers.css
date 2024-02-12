@@ -42,3 +42,17 @@
 .strong {
     font-weight: bold;
 }
+
+@media screen and (max-width: 720px){
+    
+    .blankcontainer-text{
+        font-size: 15px;
+        overflow: hidden;
+    }
+    .blankcontainer-topic{
+        font-size: 30px;
+        margin: 2.5vh;
+    }
+    
+}
+

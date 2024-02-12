@@ -18,17 +18,10 @@ db.connect((err) => {
   console.log('Connected to database');
 });
 
-
 //จัดการ cookie
 const jwtSecret = process.env.JWT_SECRET;
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-
-
-
 
 // Route สำหรับการลงทะเบียน
 router.post('/register', async (req, res) => {
